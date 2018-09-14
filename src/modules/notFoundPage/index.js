@@ -1,13 +1,16 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import classNames from 'classnames'
-import { Button } from 'antd'
-import config from './typeConfig'
-import styles from './index.less'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import classNames from 'classnames';
+import { Button } from 'antd';
+import config from './typeConfig';
+import styles from './index.less';
 
-export default ({ className, linkElement = 'a', type, title, desc, img, actions, ...rest }) => {
-  const pageType = type in config ? type : '404'
-  const clsString = classNames(styles.exception, className)
+function ErrorPage(props) {
+  const {
+    className, type, title, desc, img,
+  } = props;
+  const clsString = classNames(styles.exception, className);
   return (
     <div
       className={clsString}
@@ -15,16 +18,34 @@ export default ({ className, linkElement = 'a', type, title, desc, img, actions,
       <div className={styles['img-block']}>
         <div
           className={styles['img-ele']}
-          style={{ backgroundImage: `url(${img || config[pageType].img})` }}
+          style={{ backgroundImage: `url(${img || config[type].img})` }}
         />
       </div>
       <div className={styles.content}>
-        <h1>{title || config[pageType].title}</h1>
-        <div className={styles.desc}>{desc || config[pageType].desc}</div>
+        <h1>{title || config[type].title}</h1>
+        <div className={styles.desc}>{desc || config[type].desc}</div>
         <div className={styles.actions}>
-          <Link to='/'><Button type='primary'>返回首页</Button></Link>
+          <Link to="/"><Button type="primary">返回首页</Button></Link>
         </div>
       </div>
     </div>
-  )
+  );
 }
+
+ErrorPage.propTypes = {
+  className: PropTypes.string,
+  type: PropTypes.string,
+  title: PropTypes.string,
+  desc: PropTypes.string,
+  img: PropTypes.string,
+};
+
+ErrorPage.defaultProps = {
+  className: '',
+  type: '404',
+  title: '',
+  desc: '',
+  img: '',
+};
+
+export default ErrorPage;

@@ -4,14 +4,14 @@ import { SHOW_LIST_SPIN } from '../reduck';
 import apis from '../apis';
 
 // actions
-export const movie = createAction('home/Movies');
+export const movieAction = createAction('home/Movies');
 
 export const getMovies = arg => (dispatch) => {
   fetcherWithLoading(dispatch, SHOW_LIST_SPIN)('get', apis.movies.list, arg).then(
     (data) => {
       const { page = 1, perPage = 20, ...filter } = arg;
       dispatch(
-        movie({
+        movieAction({
           list: data.movies,
           filter,
           page,
@@ -34,7 +34,7 @@ const defaultState = {
 
 const reducer = handleActions(
   {
-    [movie]: (state, action) => ({
+    [movieAction]: (state, action) => ({
       ...state,
       ...action.payload,
     }),

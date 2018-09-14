@@ -1,20 +1,25 @@
-import React from 'react'
-import { Link } from "react-router-dom";
-import { connect } from 'react-redux'
-import { Button } from 'antd'
-import { increment, decrement } from './reduck'
-import logo from 'Assets/images/home/logo.svg'
-import './index.less'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Button } from 'antd';
+import logo from '../../assets/images/home/logo.svg';
+import { increment, decrement } from './reduck';
+import './index.less';
 
 class Home extends React.Component {
   handleAdd = () => {
-    this.props.dispatch(increment())
+    const { dispatch } = this.props;
+    dispatch(increment());
   }
+
   handleReduce = () => {
-    this.props.dispatch(decrement())
+    const { dispatch } = this.props;
+    dispatch(decrement());
   }
+
   render() {
-    const { counter } = this.props
+    const { counter } = this.props;
     return (
       <div className="App">
         <header className="App-header">
@@ -22,7 +27,11 @@ class Home extends React.Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          To get started, edit
+          {' '}
+          <code>src/App.js</code>
+          {' '}
+and save to reload.
         </p>
         <h1>{counter}</h1>
         <Button type="primary" onClick={this.handleAdd}>
@@ -43,12 +52,17 @@ class Home extends React.Component {
           </li>
         </ul>
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = state => ({
-  counter: state.home.counter
-})
+Home.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  counter: PropTypes.number.isRequired,
+};
 
-export default connect(mapStateToProps)(Home)
+const mapStateToProps = state => ({
+  counter: state.home.counter,
+});
+
+export default connect(mapStateToProps)(Home);

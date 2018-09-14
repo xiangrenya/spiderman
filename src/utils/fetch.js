@@ -7,7 +7,7 @@ import {
   showSpin,
   showBtnSpin,
   showListSpin,
-} from 'Modules/reduck';
+} from '../modules/reduck';
 import storage from './storage';
 import baseURL from '../config';
 
@@ -21,23 +21,22 @@ const fetcher = axios.create({
   },
 });
 
-fetcher.interceptors.request.use(
-  (config) => {
-    // 解决不传参时，Content-Type 不生效，服务器返回 415 的问题
-    if (!config.data) {
-      config.data = {};
-    }
-    return config;
-  },
-  error => Promise.reject(error),
-);
+// fetcher.interceptors.request.use(
+//   (config) => {
+//     // 解决不传参时，Content-Type 不生效，服务器返回 415 的问题
+//     if (!config.data) {
+//       config.data = {};
+//     }
+//     return config;
+//   },
+//   error => Promise.reject(error),
+// );
 
 fetcher.interceptors.response.use(
   (response) => {
     if (response.data.code === 120101) {
       storage.clear();
-      location.href = '/login';
-      return;
+      window.location.href = '/login';
     }
     return response.data;
   },

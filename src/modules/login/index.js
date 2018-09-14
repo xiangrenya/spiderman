@@ -1,15 +1,16 @@
-import React from 'react'
-import { Tabs } from 'antd'
-import Login from './login'
-import Signup from './signup'
-import styles from './index.less'
+import React from 'react';
+import { Tabs } from 'antd';
+import Login from './login';
+import Signup from './signup';
+import styles from './index.less';
 
-const TabPane = Tabs.TabPane
+const { TabPane } = Tabs;
 
 export default class LoginPage extends React.Component {
-  onTabChange = key => {
-    console.log(key)
+  onTabChange = (key) => {
+    console.log(key);
   }
+
   render() {
     return (
       <div className={styles['login-container']}>
@@ -24,6 +25,6 @@ export default class LoginPage extends React.Component {
           </Tabs>
         </div>
       </div>
-    )
+    );
   }
 }

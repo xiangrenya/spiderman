@@ -108,7 +108,7 @@ Movie.propTypes = {
   })).isRequired,
   dispatch: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  tatal: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = state => ({
