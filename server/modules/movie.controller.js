@@ -6,7 +6,7 @@ exports.save = (req, res, next) => {
     .save()
     .then(() => {
       res.send({
-        result: true
+        result: true,
       });
     })
     .catch(err => next(err));
@@ -16,7 +16,9 @@ exports.list = (req, res, next) => {
   page = Number(page);
   perPage = Number(perPage);
   const skip = (page - 1) * perPage;
-  let counter = 0, movies = [], total = 0;
+  let counter = 0;
+  let movies = [];
+  let total = 0;
   Movie.find()
     .sort('-create_date')
     .skip(skip)
@@ -26,22 +28,20 @@ exports.list = (req, res, next) => {
       if (err) return next(err);
       movies = datas;
       counter++;
-      success(counter, res);
+      return success(counter, res);
     });
   Movie.count().exec((err, data) => {
     if (err) return next(err);
-    counter++
+    counter++;
     total = data;
-    success(counter, res);
+    return success(counter, res);
   });
-  function success(counter, res){
-    if(counter === 2){
+  function success(counter, res) {
+    if (counter === 2) {
       res.send({
         movies,
-        total
-      })
+        total,
+      });
     }
   }
-}
-
-
+};

@@ -18,13 +18,13 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get('/', (req, res, next) => {
-    res.send('server is running ...');
-})
+app.get('/', (req, res) => {
+  res.send('server is running ...');
+});
 app.use('/api', router);
 
 // catch 404 and forward to error handler
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.status(404).end();
 });
 
@@ -35,7 +35,7 @@ app.use((err, req, res) => {
 });
 
 app.listen(3000, () => {
-    console.log('server started at port: 3000')
-})
+  console.log('server started at port: 3000');
+});
 
 module.exports = app;
