@@ -6,7 +6,10 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "lint": "eslint src/*.js"
+    "lint": "eslint src/**/.js",
+    "server:dev": "supervisor ./server/app.js",
+    "server:prod": "pm2 start ./server/app.js",
+    "movie": "node ./server/bin/movie.js"
   },
   "dependencies": {
     "antd": "^3.8.4",

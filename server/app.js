@@ -34,8 +34,8 @@ app.use((err, req, res) => {
   res.status(status).send(err);
 });
 
-app.listen(3000, () => {
-  console.log('server started at port: 3000');
+app.listen(4000, () => {
+  console.log('server started at port: 4000');
 });
 
 module.exports = app;
