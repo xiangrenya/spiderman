@@ -1,3 +1,4 @@
+const cheerio = require('cheerio');
 const Note = require('./note.model');
 
 exports.save = (req, res, next) => {
@@ -11,7 +12,7 @@ exports.save = (req, res, next) => {
     })
     .catch(err => next(err));
 };
-exports.list = (req, res, next) => {
+exports.list = async (req, res, next) => {
   let { page = 1, perPage = 20 } = req.query;
   page = Number(page);
   perPage = Number(perPage);
@@ -23,10 +24,28 @@ exports.list = (req, res, next) => {
     .sort('-create_date')
     .skip(skip)
     .limit(perPage)
-    .select('title description href source')
+    .select('_id author title content like_count comment_count')
     .exec((err, datas) => {
       if (err) return next(err);
-      notes = datas;
+      notes = Array.from(datas).map((data) => {
+        const $ = cheerio.load(data.content);
+        const summary = $.text().replace(/[\s|\n]/g, '').substr(0, 200);
+        const src = $('body').find('img').first().attr('data-original-src');
+        const image = src ? `https:${src.substring(1)}` : '';
+        const {
+          _id, author, title, like_count, comment_count,
+        } = data;
+        const ret = {
+          _id,
+          author,
+          title,
+          like_count,
+          comment_count,
+          summary,
+          image,
+        };
+        return ret;
+      });
       counter++;
       return success();
     });
@@ -39,7 +58,7 @@ exports.list = (req, res, next) => {
   function success() {
     if (counter === 2) {
       res.send({
-        notes,
+        datas: notes,
         total,
       });
     }

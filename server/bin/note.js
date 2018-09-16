@@ -3,7 +3,9 @@
 const axios = require('axios')
 const cheerio = require('cheerio')
 
-const TARGET_URL = 'https://www.jianshu.com'
+const TARGET_URL =
+  'https://www.jianshu.com/trending/weekly?utm_medium=index-banner-s&utm_source=desktop'
+const BASE_URL = 'https://www.jianshu.com'
 const API_URL = 'http://localhost:4000'
 
 async function main() {
@@ -30,7 +32,7 @@ async function main() {
         .trim()
     ),
     href:
-      TARGET_URL +
+      BASE_URL +
       $(item)
         .find('.title')
         .attr('href')

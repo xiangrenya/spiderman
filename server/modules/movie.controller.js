@@ -28,18 +28,18 @@ exports.list = (req, res, next) => {
       if (err) return next(err);
       movies = datas;
       counter++;
-      return success(counter, res);
+      return success();
     });
   Movie.count().exec((err, data) => {
     if (err) return next(err);
     counter++;
     total = data;
-    return success(counter, res);
+    return success();
   });
-  function success(counter, res) {
+  function success() {
     if (counter === 2) {
       res.send({
-        movies,
+        datas: movies,
         total,
       });
     }

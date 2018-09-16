@@ -18,6 +18,7 @@ module.exports = {
     'no-use-before-define': 1,
     'no-plusplus': 1,
     'react/forbid-prop-types': 1,
+    'camelcase': 0,
   }
 }
   
