@@ -9,7 +9,8 @@
     "lint": "eslint src/**/.js",
     "server:dev": "supervisor ./server/app.js",
     "server:prod": "pm2 start ./server/app.js",
-    "movie": "node ./server/bin/movie.js"
+    "movie": "node ./server/bin/movie.js",
+    "note": "node ./server/bin/note.js"
   },
   "dependencies": {
     "antd": "^3.8.4",
