@@ -1,5 +1,5 @@
 module.exports = {
   mongodb: {
-    uri: 'mongodb://localhost/superhero',
+    uri: 'mongodb://localhost/spider',
   },
 };
